@@ -1,0 +1,59 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>My App</span>
+    <span class="spacer"></span>
+    <button
+      mat-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+      (click)="openQuestionDialog()"
+    >
+      <mat-icon>add</mat-icon> Add your question
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="15px grid">
+    <div
+      fxFlex="25"
+      fxFlex.xs="100%"
+      fxFlex.sm="33%"
+      *ngFor="let question of questions"
+    >
+      <mat-card class="example-card">
+        <mat-card-subtitle
+          >by {{ question.username | titlecase }}</mat-card-subtitle
+        >
+        <mat-card-title>{{ question.question }}</mat-card-title>
+        <mat-card-content>
+          <p fxLayout="row">
+            {{ question.last_update | date }}
+          </p>
+        </mat-card-content>
+        <mat-divider inset></mat-divider>
+        <mat-card-actions>
+          <button
+            mat-button
+            color="accent"
+            (click)="openAnswerDialog(question.question, question.question_id)"
+          >
+            See all answers
+          </button>
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="
+              utilsService.openAddAnswerDialog(
+                question.question,
+                question.username,
+                question.question_id
+              )
+            "
+          >
+            Give your answer
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

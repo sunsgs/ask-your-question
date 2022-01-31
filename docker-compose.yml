@@ -1,0 +1,45 @@
+version: "3"
+services:
+  ask-your-question-app:
+    container_name: ask-your-question-app
+    build:
+      context: .
+      dockerfile: .Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:newPassword@postgres:5432/ask-your-question-db
+      NODE_ENV: development
+      PORT: 4000
+    ports:
+      - "4000:4000"
+  postgres:
+    container_name: postgres
+    image: postgres:10.4
+    ports:
+      - "5432:5432"
+    volumes: 
+      - postgresdata:/var/lib/postgresql/data
+      - ./dbinit/dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: newPassword
+      POSTGRES_DB: ask-your-question-db
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: info@gianlucasuarato.it
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - postgres
+volumes:
+    postgresdata:
+    pgadmin:

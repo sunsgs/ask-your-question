@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>All answers</h2>
+<mat-dialog-content>
+  <h3>question: {{ question }}</h3>
+  <p *ngIf="answers?.length === 0">no answers yet</p>
+  <mat-list role="list" *ngIf="answers?.length">
+    <mat-list-item role="listitem" *ngFor="let answer of answers">
+      <div fxLayout="column">
+        <div>{{ answer.answer }}</div>
+        <div class="small">
+          by {{ answer.username }} on {{ answer.last_update | date }}
+        </div>
+      </div>
+      <mat-divider></mat-divider
+    ></mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

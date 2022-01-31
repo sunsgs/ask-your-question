@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Add your question</h2>
+<form [formGroup]="questionFormGroup" (ngSubmit)="addQuestion()">
+  <mat-dialog-content>
+    <div>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Your username</mat-label>
+        <input matInput placeholder="username" formControlName="username" />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-label>Your Question</mat-label>
+        <textarea
+          matInput
+          placeholder="question"
+          formControlName="question"
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Cancel</button>
+    <button
+      type="submit"
+      [disabled]="questionFormGroup.invalid"
+      mat-flat-button
+    >
+      Add now
+    </button>
+  </mat-dialog-actions>
+</form>
